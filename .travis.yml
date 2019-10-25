@@ -8,8 +8,7 @@ compiler: clang
 install:
   - pip3 install conan
   # Automatic detection of your arch, compiler, etc.
-  - conan user
-  - conan profile update settings.compiler.libcxx=libstdc++11 default   
+#  - conan user
 
 # install and set g++-8
 matrix:
@@ -40,6 +39,7 @@ before install:
   
 # run  
 script:
+- conan profile update settings.compiler.libcxx=libstdc++11 default   
 - conan install .
 - cmake .
 - cmake --build .
