@@ -36,6 +36,7 @@ before script:
   
 # run  
 script:
+- eval "${MATRIX_EVAL}"
 - conan install .
 - cmake .
 - cmake --build .
