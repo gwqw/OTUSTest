@@ -9,6 +9,7 @@ install:
   - pip3 install conan
   # Automatic detection of your arch, compiler, etc.
   - conan user
+  - conan profile update settings.compiler.libcxx=libstdc++11 default   
 
 # install and set g++-8
 matrix:
@@ -31,7 +32,7 @@ addons:
     packages:
     - libboost-test-dev
 
-before script:
+before install:
 - sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-8 60
 - sudo update-alternatives --install /usr/bin/c++ c++ /usr/bin/g++ 60
 - sudo update-alternatives --set c++ /usr/bin/g++
