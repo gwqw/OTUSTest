@@ -1,13 +1,14 @@
 dist: xenial
-language: python
-python: "3.7"
+language: cpp
+#language: python
+#python: "3.7"
 compiler: clang
 
 # Install conan
-install:
-  - pip install conan
+#install:
+ # - pip install conan
   # Automatic detection of your arch, compiler, etc.
-  - conan user
+  #- conan user
 
 # install and set g++-8
 matrix:
@@ -35,7 +36,7 @@ before script:
   
 # run  
 script:
-- conan install .
+#- conan install .
 - cmake .
 - cmake --build .
 - cmake --build . --target test
