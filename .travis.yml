@@ -2,11 +2,6 @@ dist: xenial
 language: python
 python: "3.7"
 compiler: clang
-install:
-# Install conan
-  - pip install conan
-  # Automatic detection of your arch, compiler, etc.
-  - conan user
 addons:
   apt:
     sources:
@@ -14,6 +9,11 @@ addons:
     packages:
     - g++-8
     - libboost-test-dev
+install:
+# Install conan
+  - pip install conan
+  # Automatic detection of your arch, compiler, etc.
+  - conan user
 script:
 - g++ --version
 - conan install .
