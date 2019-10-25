@@ -4,12 +4,6 @@ language: python
 python: "3.7"
 compiler: clang
 
-# Install conan
-install:
-  - pip3 install conan
-  # Automatic detection of your arch, compiler, etc.
-  - conan user
-
 # install and set g++-8 and boost
 matrix:
   include:
@@ -25,12 +19,13 @@ matrix:
          - MATRIX_EVAL="CC=gcc-8 && CXX=g++-8"
 before_install:
     - eval "${MATRIX_EVAL}"
-    - sudo update-alternatives --remove-all g++
     - sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-8 60
-    - sudo update-alternatives --install /usr/bin/c++ c++ /usr/bin/g++ 60
-    - sudo update-alternatives --set c++ /usr/bin/g++
-    - sudo update-alternatives --config g++
-
+    
+# Install conan
+install:
+  - pip3 install conan
+  # Automatic detection of your arch, compiler, etc.
+  - conan user
 
 # run  
 script:
