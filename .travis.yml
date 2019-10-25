@@ -32,11 +32,10 @@ addons:
     - libboost-test-dev
 
 before script:
-    - eval "${MATRIX_EVAL}"
+- sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-8 60
   
 # run  
 script:
-- eval "${MATRIX_EVAL}"
 - conan install .
 - cmake .
 - cmake --build .
