@@ -6,7 +6,7 @@ compiler: clang
 
 # Install conan
 install:
-  - pip install conan
+  - pip3 install conan
   # Automatic detection of your arch, compiler, etc.
   - conan user
 
