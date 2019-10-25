@@ -8,7 +8,7 @@ compiler: clang
 install:
   - pip install conan
   # Automatic detection of your arch, compiler, etc.
-  #- conan user
+  - conan user
 
 # install and set g++-8
 matrix:
