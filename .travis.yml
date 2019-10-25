@@ -39,7 +39,7 @@ before script:
   
 # run  
 script:
-#- conan install .
+- conan install .
 - cmake .
 - cmake --build .
 - cmake --build . --target test
