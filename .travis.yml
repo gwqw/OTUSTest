@@ -29,7 +29,10 @@ addons:
   apt:
     packages:
     - libboost-test-dev
-    
+
+before script:
+    - eval "${MATRIX_EVAL}"
+  
 # run  
 script:
 - conan install .
