@@ -2,20 +2,36 @@ dist: xenial
 language: python
 python: "3.7"
 compiler: clang
-addons:
-  apt:
-    sources:
-    - ubuntu-toolchain-r-test
-    packages:
-    - g++-8
-    - libboost-test-dev
-install:
+
 # Install conan
+install:
   - pip install conan
   # Automatic detection of your arch, compiler, etc.
   - conan user
+
+# install and set g++-8
+matrix:
+  include:
+    - os: linux
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - g++-8
+      env:
+         - MATRIX_EVAL="CC=gcc-8 && CXX=g++-8"
+before_install:
+    - eval "${MATRIX_EVAL}"
+
+# install boost
+addons:
+  apt:
+    packages:
+    - libboost-test-dev
+    
+# run  
 script:
-- g++ --version
 - conan install .
 - cmake .
 - cmake --build .
