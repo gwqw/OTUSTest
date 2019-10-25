@@ -10,7 +10,7 @@ install:
   # Automatic detection of your arch, compiler, etc.
   - conan user
 
-# install and set g++-8
+# install and set g++-8 and boost
 matrix:
   include:
     - os: linux
@@ -20,16 +20,11 @@ matrix:
             - ubuntu-toolchain-r-test
           packages:
             - g++-8
+            - libboost-test-dev
       env:
          - MATRIX_EVAL="CC=gcc-8 && CXX=g++-8"
 before_install:
     - eval "${MATRIX_EVAL}"
-
-# install boost
-addons:
-  apt:
-    packages:
-    - libboost-test-dev
 
 before install:
 - sudo update-alternatives --remove-all g++
