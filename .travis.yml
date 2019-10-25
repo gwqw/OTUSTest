@@ -25,13 +25,11 @@ matrix:
          - MATRIX_EVAL="CC=gcc-8 && CXX=g++-8"
 before_install:
     - eval "${MATRIX_EVAL}"
-
-before install:
-- sudo update-alternatives --remove-all g++
-- sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-8 60
-- sudo update-alternatives --install /usr/bin/c++ c++ /usr/bin/g++ 60
-- sudo update-alternatives --set c++ /usr/bin/g++
-- sudo update-alternatives --config g++
+    - sudo update-alternatives --remove-all g++
+    - sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-8 60
+    - sudo update-alternatives --install /usr/bin/c++ c++ /usr/bin/g++ 60
+    - sudo update-alternatives --set c++ /usr/bin/g++
+    - sudo update-alternatives --config g++
 
 
 # run  
