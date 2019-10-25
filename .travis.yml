@@ -8,7 +8,7 @@ compiler: clang
 install:
   - pip3 install conan
   # Automatic detection of your arch, compiler, etc.
-#  - conan user
+  - conan user
 
 # install and set g++-8
 matrix:
@@ -32,23 +32,18 @@ addons:
     - libboost-test-dev
 
 before install:
-- sudo update-alternatives --remove-all gcc 
 - sudo update-alternatives --remove-all g++
 - sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-8 60
 - sudo update-alternatives --install /usr/bin/c++ c++ /usr/bin/g++ 60
 - sudo update-alternatives --set c++ /usr/bin/g++
 - sudo update-alternatives --config g++
 
-# velosiped
-before script:
-- cd /usr/bin
-- sudo rm g++
-- sudo ln g++-8 g++
-- cd "${TRAVIS_BUILD_DIR}"
-  
+
 # run  
 script:
-- conan profile update settings.compiler.libcxx=libstdc++11 default   
+- conan install .
+- conan profile update settings.compiler.libcxx=libstdc++11 default
+- conan profile update settings.compiler.version=8 default   
 - conan install .
 - cmake .
 - cmake --build .
