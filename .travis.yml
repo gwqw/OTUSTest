@@ -1,12 +1,12 @@
 dist: xenial
-language: cpp
+language: python
 python: "3.7"
 compiler: clang
-#install:
+install:
 # Install conan
- # - pip install conan
+  - pip install conan
   # Automatic detection of your arch, compiler, etc.
-  #- conan user
+  - conan user
 addons:
   apt:
     sources:
