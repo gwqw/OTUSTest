@@ -5,6 +5,9 @@ language: cpp
 compiler: clang
 
 # Install conan
+before_install:
+  - pip install --user conan
+  - conan install --build
 #install:
  # - pip install conan
   # Automatic detection of your arch, compiler, etc.
