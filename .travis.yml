@@ -14,11 +14,12 @@ matrix:
         apt:
           sources:
             - ubuntu-toolchain-r-test
-            - archive.ubuntu.com/ubuntu
+            - sourceline: 'deb http://archive.ubuntu.com/ubuntu xenial main universe'
           packages:
             - g++-8
             - libopenblas-dev
             - libdlib-dev
+          update: true
       env:
          - MATRIX_EVAL="CC=gcc-8 && CXX=g++-8"
 before_install:
