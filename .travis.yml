@@ -1,8 +1,10 @@
 dist: xenial
-#language: cpp
-language: python
-python: "3.7"
+language: cpp
 compiler: clang
+# safelist
+branches:
+  only:
+  - master
 
 # install and set g++-8 and boost
 matrix:
@@ -12,28 +14,19 @@ matrix:
         apt:
           sources:
             - ubuntu-toolchain-r-test
+            - archive.ubuntu.com/ubuntu
           packages:
             - g++-8
-            - libboost-test-dev
+            - libopenblas-dev
+            - libdlib-dev
       env:
          - MATRIX_EVAL="CC=gcc-8 && CXX=g++-8"
 before_install:
     - eval "${MATRIX_EVAL}"
     - sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-8 60
-    
-# Install conan
-install:
-  - pip3 install conan
-  # Automatic detection of your arch, compiler, etc.
-  - conan user
 
 # run  
 script:
-- conan install .
-- sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-8 60
-- conan profile update settings.compiler.libcxx=libstdc++11 default
-- conan profile update settings.compiler.version=8 default   
-- conan install .
 - cmake .
 - cmake --build .
 - cmake --build . --target test
