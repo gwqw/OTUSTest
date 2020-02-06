@@ -37,6 +37,7 @@ install:
 # run  
 script:
 - conan remote add omaralvarez https://api.bintray.com/conan/omaralvarez/public-conan
+- conan profile new default --detect
 #- conan install . -s build_type=Release --build=missing
 # mf costyl': need to update conan profile and install again
 - sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-8 60
