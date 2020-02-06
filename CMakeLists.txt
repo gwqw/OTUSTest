@@ -36,8 +36,8 @@ set_target_properties(${EXE_NAME}
     #LINK_OPTIONS "-fsanitize=thread"
 )
 
-set_target_properties(${EXE_NAME} PROPERTIES
-    INCLUDE_DIRECTORIES ${CMAKE_MODULE_PATH}/include
+target_include_directories(${EXE_NAME}
+        PRIVATE ${CMAKE_MODULE_PATH}/include
 )
 
 # target linking
