@@ -33,6 +33,12 @@
 
 # Directories
 *debug*/
+*release*/
 .git/
 bak/
 .idea/
+html/
+latex/
+binary_data/
+examples/
+libraries/

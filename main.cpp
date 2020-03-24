@@ -1,47 +1,45 @@
 #include <iostream>
-#include <string>
-#include <utility>
-#include <memory>
-#include <deque>
-#include <future>
-#include <vector>
-#include <cassert>
 
-#include "hello.h"
-#include "test.h"
+#include <opencv2/opencv.hpp>
+
+#include "framedata_reader.h"
+#include "file_utils.h"
 
 using namespace std;
 
-int g = 0;
+int main(int argc, char* argv[]) {
+    try {
+        // parse command line
+        const cv::String keys =
+                "{help h         |      | this screen          }"
+                "{dir d          |      | Input directory with *.info.yaml.gz files }"
+                "{start s        | -1   | episode number to start counting fps. Empty means from the first in directory }"
+                "{end e          | -1   | episode number to stop counting fps. Empty means to the last in directory }"
+                "{ o             |      | output filename (csv-table)       }"
+        ;
 
-void inc() {
-    ++g;
-}
+        cv::CommandLineParser parser(argc, argv, keys);
+        if (parser.has("help") || !parser.has("dir")) {
+            parser.printMessage();
+            return 0;
+        }
+        auto inputDir = parser.get<string>("dir");
+        auto startEpisodeNumber = max(parser.get<int>("start"), -1);
+        auto endEpisodeNumber = max(parser.get<int>("end"), -1);
+        auto ouputFname = parser.get<string>("o");
 
+        auto file_list = getFileList(inputDir, startEpisodeNumber, endEpisodeNumber);
+        Episode episode;
+        for (const auto& filename : file_list) {
+            episode.addDataFromFile(filename);
+        }
+        auto res = episode.getFps();
+        saveToCSV(res, ouputFname);
 
-int main() {
-    {
-    vector<future<void>> futures;
-    for (int i = 0; i < 100; ++i) {
-        futures.push_back(async(inc));
+        return 0;
     }
-
+    catch (const exception& e) {
+        cerr << e.what() << endl;
+        return 1;
     }
-    cout <<  g << endl;
-    assert(g == 100);
-
-
-
-//    auto f1 = make_unique<Foo>();
-//    auto f2 = make_unique<Foo>();
-//    auto& buffer1 = f1->getBuffer();
-//    auto& buffer2 = f2->getBuffer();
-//    buffer1.emplace_back("test1");
-//    buffer2.emplace_back("test2");
-//    cout << "1: ";
-//    f1->print();
-//    cout << "2: ";
-//    f2->print();
-
-    return 0;
 }
