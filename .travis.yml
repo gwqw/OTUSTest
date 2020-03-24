@@ -8,7 +8,8 @@ branches:
 
 # install and set g++-8 and boost
 before_install:
-  - sudo apt -y install libboost-test-dev
+  - sudo apt update
+  - sudo apt -y install libboost-all-dev
   - sudo apt -y install libopencv-dev
 
 # run
