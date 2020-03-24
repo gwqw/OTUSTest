@@ -7,14 +7,20 @@ branches:
   - master
 
 # install and set g++-8 and boost
-addons: 
-    apt: #
-        update: true # analog for before_install: sudo apt-get update 
-        sources:
-        - ubuntu-toolchain-r-test 
-        packages:
-        - libboost-test-dev
-        - libopencv-dev
+matrix:
+  include:
+    - os: linux
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - libboost-test-dev
+            - libopencv-dev
+      env:
+         - MATRIX_EVAL="CC=gcc-8 && CXX=g++-8"
+before_install:
+    - eval "${MATRIX_EVAL}"
 
 # run
 script:
